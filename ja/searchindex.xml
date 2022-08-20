@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>Markdown语法手册</title><url>/ja/post/markdown-syntax/</url><categories><category>themes</category><category>syntax</category></categories><tags><tag>markdown</tag><tag>css</tag><tag>html</tag></tags><content type="html"> 本文提供了一个可以在 Hugo 内容文件中使用的基本Markdown语法示例，还展示了基本 HTML 元素在 Hugo 主题中是否使用 CSS 装饰。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><search><entry><title>go rutine的一些理解</title><url>/ja/post/go_routine/</url><categories><category>go</category></categories><tags><tag>go</tag><tag>gorutine</tag></tags><content type="html"> 这几种type都是写啥意思 xxx.(type) string gorutine 其实是一种协程 Coroutine gorutine 的定义 任何函数只需要加上go就能送给调度器运行 不需要在定义时区分是否是异步函数 调度器在合适的点切换，和线程的切换是不一样的 使用-race来检测数据访问冲突 轻量级的“线程” 非抢占式的 多任务处理，由协程主动交出控制权 编译器/解释器/虚拟机层面的多任务，并不是操作系统层面的，操作系统层面是没有协程概念的 多个协程可能在一个或者多个线程上运行 main函数本身也是个 go routine // 以下代码会死机，因为以下的go rutine不会主动的交出控制权 func main() { var a[10] int for i := 0; i &lt; 10; i ++ { go func(i) { // 这个i感觉不用传，但是必须要传， a[i] ++ // 手动交出控制权，所以不会死机，不过这里只是演示而已 // 因为实际我们总是会有机会进行调度的切换的 runtime.Gosched() }(i) } time.Sleep(time.Millisecond) } // 以下代码会不会死机，但是打印的内容并不是连贯的，所以感觉他是抢占式的 // `fmt.Println`属于io操作 func main() { for i := 0; i &lt; 100; i ++ { go func(i) { fmt.Println(i) }(i) } time.Sleep(time.Millisecond) } gorutine 可能的切换点 以下只是参考，不能保证切换，不能保证在其他地方不会切换 i/o,select channel 等待锁 函数调用（有时） runtime.Gosched() channel gorutine之间的双向通道 channel 就是一种类型！channel 就是一种类型！channel 就是一种类型！ 引用类型，切片，map分配内存都是需要使用make函数</content></entry><entry><title>Markdown语法手册</title><url>/ja/markdown-syntax/</url><categories><category>themes</category><category>syntax</category></categories><tags><tag>markdown</tag><tag>css</tag><tag>html</tag></tags><content type="html"> 本文提供了一个可以在 Hugo 内容文件中使用的基本Markdown语法示例，还展示了基本 HTML 元素在 Hugo 主题中是否使用 CSS 装饰。
 标题 下面的 HTML 代码&lt;h1>—&lt;h6> 元素表示六个级别的节标题。 &lt;h1>是最高的节级别，&lt;h6>是最低的节级别。
 H1 H2 H3 H4 H5 H6 段落 生活是什么？生活是柴米油盐的平淡；是行色匆匆早出晚归的奔波；生活是错的时间遇到对的人的遗憾；是爱的付出与回报；生活是看不同的风景，遇到不同的人；是行至水穷尽，坐看云起时的峰回路转；生活是灵魂经历伤痛后的微笑怒放；是挫折坎坷被晾晒后的坚强；生活是酸甜苦辣被岁月沉淀后的馨香；是经历风霜雪雨洗礼后的懂得；生活是走遍千山万水后，回眸一笑的洒脱。
 有些事，猝不及防，不管你在不在乎；有些人，并非所想，不管你明不明白；有些路，必须得走，不管你愿不愿意。不怕事，不惹事，不避事，做好自己，用真心面对一切；少埋怨，少指责，少发火，学会沉静，用微笑考量一切；多体察，多包容，多思索，尽心尽力，虽缺憾但无悔。像蒲公英一样美丽，虽轻盈，但并不卑微，它有自己的生命，也有自己的世界！
@@ -27,15 +27,15 @@ Xn + Yn = Zn
 按 CTRL+ALT+Delete 组合键结束会话。
 大多数蝾螈在夜间活动，捕食昆虫、蠕虫和其他小动物。
 以上引文摘自Rob Pike在2015年11月18日 Gopherfest 上的演讲
-。&#160;&#8617;&#xfe0e;</content></entry><entry><title>富文本内容测试</title><url>/ja/post/rich-content/</url><categories/><tags><tag>shortcodes</tag><tag>privacy</tag></tags><content type="html"> Hugo 上有几个内置短码
+。&#160;&#8617;&#xfe0e;</content></entry><entry><title>富文本内容测试</title><url>/ja/rich-content/</url><categories/><tags><tag>shortcodes</tag><tag>privacy</tag></tags><content type="html"> Hugo 上有几个内置短码
 ，用于丰富内容，以及隐私配置
 还有一组简单的短代码，支持各种社交媒体嵌入的静态和非 JS 版本。
 YouTube 增强隐私短码 {{/&lt; youtube ZJthWmvUzzc >/}}
 Twitter 短码 {{/&lt; twitter_simple 1085870671291310081 >/}}
 Vimeo 短码 {{/&lt; vimeo_simple 48912912 >/}}
-哔哩哔哩短码</content></entry><entry><title>图像占位符显示</title><url>/ja/post/placeholder-text/</url><categories/><tags><tag>markdown</tag><tag>text</tag></tags><content type="html"> 范德格拉夫原理（Van de Graaf Canon）重构了曾经用于书籍设计中将页面划分为舒适比例的方法。这一原理也被称为“秘密原理”，用于许多中世纪的手稿和古板书中。在范德格拉夫原理中，文本区域和页面的长款具有相同的比例，并且文本区域的高度等于页面宽度，通过划分页面得到九分之一的订口边距和九分之二的切口边距，以及与页面长宽相同的比例的文本区域。
+哔哩哔哩短码</content></entry><entry><title>图像占位符显示</title><url>/ja/placeholder-text/</url><categories/><tags><tag>markdown</tag><tag>text</tag></tags><content type="html"> 范德格拉夫原理（Van de Graaf Canon）重构了曾经用于书籍设计中将页面划分为舒适比例的方法。这一原理也被称为“秘密原理”，用于许多中世纪的手稿和古板书中。在范德格拉夫原理中，文本区域和页面的长款具有相同的比例，并且文本区域的高度等于页面宽度，通过划分页面得到九分之一的订口边距和九分之二的切口边距，以及与页面长宽相同的比例的文本区域。
 Vagus 示例 The Van de Graaf Canon
-总结 当然设计中的黄金比例是为人所熟知的，黄金分割的公式为a:b=b:(a+b)。这是指较小的两个矩形与较大的两个矩形以相同的组合方式相关联。黄金分割比例为1:1.618。</content></entry><entry><title>数据公式设置显示</title><url>/ja/post/math-typesetting/</url><categories/><tags/><content type="html"> Hugo 项目中的数学表示法可以通过使用第三方 JavaScript 库来实现。
+总结 当然设计中的黄金比例是为人所熟知的，黄金分割的公式为a:b=b:(a+b)。这是指较小的两个矩形与较大的两个矩形以相同的组合方式相关联。黄金分割比例为1:1.618。</content></entry><entry><title>数据公式设置显示</title><url>/ja/math-typesetting/</url><categories/><tags/><content type="html"> Hugo 项目中的数学表示法可以通过使用第三方 JavaScript 库来实现。
 在这个例子中，我们将使用 MathJax
 创建一个文件 /content/en[zh-CN]/math.md
 可以全局启用MathJax，请在项目配置中将参数math设置为true
@@ -82,7 +82,7 @@ $$ \frac{n!}{k!(n-k)!} = {^n}C_k {n \choose k} $$
 矩阵 $$ \begin{pmatrix} a_{11} &amp; a_{12} &amp; a_{13}\ a_{21} &amp; a_{22} &amp; a_{23}\ a_{31} &amp; a_{32} &amp; a_{33} \end{pmatrix} \begin{bmatrix} 0 &amp; \cdots &amp; 0 \ \vdots &amp; \ddots &amp; \vdots \ 0 &amp; \cdots &amp; 0 \end{bmatrix} $$
 标点符号 $$ f(x) = \sqrt{1+x} \quad (x \ge -1) f(x) \sim x^2 \quad (x\to\infty) $$
 现在用标点符号:
-$$ f(x) = \sqrt{1+x}, \quad x \ge -1 f(x) \sim x^2, \quad x\to\infty $$</content></entry><entry><title>支持Emoji表情符号</title><url>/ja/post/emoji-support/</url><categories/><tags><tag>emoji</tag></tags><content type="html"> Emoji 表情符号可以通过多种方式在 Hugo 项目中启用。
+$$ f(x) = \sqrt{1+x}, \quad x \ge -1 f(x) \sim x^2, \quad x\to\infty $$</content></entry><entry><title>支持Emoji表情符号</title><url>/ja/emoji-support/</url><categories/><tags><tag>emoji</tag></tags><content type="html"> Emoji 表情符号可以通过多种方式在 Hugo 项目中启用。
 使用 Emoji 表情符号可以在模板中可以直接调用 emojify
 函数或是通过 内联短代码
 来实现。
